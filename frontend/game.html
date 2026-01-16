@@ -11,13 +11,41 @@
   <div class="game-container">
     <div class="game-header">
       <h2 id="modeText">Chế độ</h2>
-      <p id="status">Lượt: X</p>
-    </div>
+      
+      <div class="dashboard">
+        <div id="difficulty-area" class="setting-row" style="display: none;">
+          <label for="difficultySelect">Độ khó:</label>
+          <select id="difficultySelect" onchange="changeDifficulty()">
+            <option value="2">Dễ</option>
+            <option value="3" selected>Trung bình</option>
+            <option value="4">Khó</option>
+          </select>
+        </div>
+
+        <div class="scoreboard">
+          <div class="player-card x-player active" id="card-X">
+            <input type="text" id="name-X" value="Người chơi 1" class="player-name-input">
+            <div class="score" id="score-X">0</div>
+            <div class="badge X">X</div>
+          </div>
+          
+          <div class="vs-text">VS</div>
+          
+          <div class="player-card o-player" id="card-O">
+            <input type="text" id="name-O" value="Người chơi 2" class="player-name-input">
+            <div class="score" id="score-O">0</div>
+            <div class="badge O">O</div>
+          </div>
+        </div>
+      </div>
+      
+      <p id="status" style="display:none">Lượt: X</p> </div>
 
     <div id="board" class="board"></div>
 
     <div class="game-actions">
-      <button class="btn reset" onclick="resetGame()">Chơi lại</button>
+      <button class="btn reset" onclick="resetGame()">Ván mới</button>
+      <button class="btn delete" onclick="resetMatch()">Đặt lại tỉ số</button>
       <button class="btn home" onclick="goHome()">Trang chủ</button>
     </div>
   </div>

@@ -4,7 +4,7 @@ const WIN_COUNT = 5;
 const params = new URLSearchParams(window.location.search);
 const mode = params.get("mode") || "player";
 
-let aiSide = "O";      
+let aiSide = "O";     
 let humanSide = "X";  
 
 let maxDepth = 3; 
@@ -67,7 +67,6 @@ function updateActivePlayerUI() {
 
 function handleClick(index) {
   if (board[index] || gameOver) return;
-  
   if (mode === "ai" && currentPlayer === aiSide) return;
 
   board[index] = currentPlayer;
@@ -93,7 +92,6 @@ function checkWinner(index) {
   const player = board[index];
   const row = Math.floor(index / SIZE);
   const col = index % SIZE;
-
   const directions = [[1, 0], [0, 1], [1, 1], [1, -1]];
 
   for (let [dx, dy] of directions) {
@@ -141,6 +139,7 @@ function countDirection(row, col, dx, dy, player) {
   return count;
 }
 
+// --- LOGIC AI ---
 function getCandidateMoves(board) {
   const moves = new Set();
   board.forEach((cell, i) => {
@@ -192,7 +191,7 @@ function minimax(board, depth, alpha, beta, maximizing) {
   const moves = getCandidateMoves(board);
   if (moves.length === 0) return evaluateBoard(board);
 
-  if (maximizing) { 
+  if (maximizing) {
     let maxEval = -Infinity;
     for (let move of moves) {
       board[move] = aiSide; 
@@ -203,7 +202,7 @@ function minimax(board, depth, alpha, beta, maximizing) {
       if (beta <= alpha) break;
     }
     return maxEval;
-  } else { 
+  } else {
     let minEval = Infinity;
     for (let move of moves) {
       board[move] = humanSide;
@@ -231,7 +230,7 @@ function aiMove() {
   });
 
   for (let move of moves) {
-    board[move] = aiSide;
+    board[move] = aiSide; 
     const score = minimax(board, maxDepth, -Infinity, Infinity, false);
     board[move] = "";
     if (score > bestScore) {
@@ -255,7 +254,6 @@ function aiMove() {
 }
 
 function resetGame() {
-  
   let tempName = inputNameX.value;
   inputNameX.value = inputNameO.value;
   inputNameO.value = tempName;
@@ -273,7 +271,6 @@ function resetGame() {
 
   board = Array(SIZE * SIZE).fill("");
   gameOver = false;
-  
   currentPlayer = "X";
   drawBoard();
 
@@ -304,8 +301,48 @@ function resetMatch() {
   drawBoard();
 }
 
+
 function goHome() {
-  window.location.href = "home.html";
+  if (scoreX > 0 || scoreO > 0) {
+    saveMatchResult();
+  } else {
+    window.location.href = "home.html";
+  }
+}
+
+function saveMatchResult() {
+  const p1Name = inputNameX.value;
+  const p2Name = inputNameO.value;
+  
+  const payload = {
+    mode: mode === "ai" ? "PvE" : "PvP",
+    player1: p1Name,
+    player2: p2Name,
+    score1: scoreX,
+    score2: scoreO,
+    boardSize: SIZE
+  };
+
+  const fetchPromise = fetch("http://localhost:3000/api/history", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+    keepalive: true 
+  });
+
+  const timeoutPromise = new Promise((resolve) => {
+    setTimeout(() => resolve("timeout"), 500);
+  });
+
+  Promise.race([fetchPromise, timeoutPromise])
+    .then(result => {
+      if (result === "timeout") console.log("Server phản hồi chậm, bỏ qua đợi.");
+      else console.log("Đã gửi dữ liệu.");
+    })
+    .catch(err => console.error("Lỗi khi lưu:", err))
+    .finally(() => {
+      window.location.href = "home.html";
+    });
 }
 
 drawBoard();

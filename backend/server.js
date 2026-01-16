@@ -1,53 +1,34 @@
-const express = require("express");
-const cors = require("cors");
-const db = require("./db");
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const db = require('./db');
 
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
 
-// test server
-app.get("/", (req, res) => {
-  res.send("Backend Caro đang chạy OK ");
-});
-
-// lưu lịch sử đấu
-app.post("/api/history", (req, res) => {
-  const { mode, winner, boardSize } = req.body;
-
-  const sql =
-    "INSERT INTO history (mode, winner, board_size) VALUES (?, ?, ?)";
-
-  db.query(sql, [mode, winner, boardSize], err => {
-    if (err) return res.status(500).json(err);
-    res.json({ message: "Đã lưu lịch sử" });
+app.post('/api/history', (req, res) => {
+  const { mode, player1, player2, score1, score2, boardSize } = req.body;
+  
+  const sql = "INSERT INTO game_history (mode, player1, player2, score1, score2, boardSize) VALUES (?, ?, ?, ?, ?, ?)";
+  
+  db.query(sql, [mode, player1, player2, score1, score2, boardSize], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Lỗi server");
+    } else {
+      res.send("Đã lưu lịch sử đấu");
+    }
   });
 });
 
-// lấy lịch sử đấu
-app.get("/api/history", (req, res) => {
-  db.query(
-    "SELECT * FROM history ORDER BY created_at DESC",
-    (err, result) => {
-      if (err) return res.status(500).json(err);
-      res.json(result);
-    }
-  );
-});
-
-//xoa lich su dau
-app.delete("/api/history", (req, res) => {
-  const sql = "DELETE FROM history";
-
-  db.query(sql, (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).json({ message: "Xóa lịch sử thất bại" });
-    }
-    res.json({ message: "Đã xóa toàn bộ lịch sử đấu" });
+app.get('/api/history', (req, res) => {
+  db.query("SELECT * FROM game_history ORDER BY playedAt DESC", (err, result) => {
+    if (err) throw err;
+    res.json(result);
   });
 });
 
 app.listen(3000, () => {
-  console.log(" Server chạy tại http://localhost:3000");
+  console.log('Server running on port 3000');
 });

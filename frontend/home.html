@@ -5,6 +5,15 @@
   <title>Game Caro - Trang chủ</title>
   <link rel="icon" href="images/xo.png">
   <link rel="stylesheet" href="style.css">
+  <style>
+    .btn.history {
+      background-color: #f39c12;
+      margin-top: 15px;
+    }
+    .btn.history:hover {
+      background-color: #e67e22;
+    }
+  </style>
 </head>
 <body>
 
@@ -16,9 +25,10 @@
       <label>Chọn chế độ chơi:</label>
       <button class="btn start" onclick="location.href='game.html?mode=player'">Chơi với Người (PvP)</button>
       <button class="btn start" onclick="location.href='game.html?mode=ai'">Chơi với Máy (PvE)</button>
+      
+      <button class="btn history" onclick="location.href='history.html'">Xem Lịch sử đấu</button>
     </div>
-    
-    </div>
+  </div>
 
 </body>
 </html>

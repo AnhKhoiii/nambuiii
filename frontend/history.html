@@ -2,30 +2,121 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Lịch sử đấu - Game Caro XO</title>
+  <title>Lịch sử đấu - Game Caro</title>
   <link rel="icon" href="images/xo.png">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* CSS riêng cho trang lịch sử để hiển thị danh sách đẹp hơn */
+    .history-container {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      width: 90%;
+      max-width: 600px;
+      margin: 50px auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .history-list {
+      max-height: 400px;
+      overflow-y: auto;
+      border-top: 2px solid #f0f2f5;
+    }
+
+    /* Thanh cuộn đẹp hơn */
+    .history-list::-webkit-scrollbar {
+      width: 6px;
+    }
+    .history-list::-webkit-scrollbar-thumb {
+      background-color: #ccc;
+      border-radius: 4px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 10px;
+      border-bottom: 1px solid #eee;
+      transition: background 0.2s;
+    }
+
+    .history-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .match-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .match-players {
+      font-size: 16px;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .score-badge {
+      background-color: #e74c3c;
+      color: white;
+      padding: 2px 8px;
+      border-radius: 10px;
+      margin: 0 5px;
+      font-size: 14px;
+    }
+
+    .match-meta {
+      font-size: 12px;
+      color: #7f8c8d;
+    }
+
+    .mode-tag {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: #3498db;
+      color: white;
+      font-size: 10px;
+      text-transform: uppercase;
+      margin-right: 5px;
+    }
+
+    .mode-tag.pve { background-color: #9b59b6; } /* Màu tím cho PvE */
+    .mode-tag.pvp { background-color: #2ecc71; } /* Màu xanh cho PvP */
+
+    .empty-msg {
+      text-align: center;
+      padding: 20px;
+      color: #999;
+      font-style: italic;
+    }
+
+    .back-btn-container {
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
 </head>
-<body class="history-page">
+<body>
 
   <div class="history-container">
-    <h1>Lịch sử đấu</h1>
-  
-    <ul id="historyList" class="history-list">
-      <!-- JS render vào đây -->
-    </ul>
-  
-    <button class="btn-back" onclick="window.location.href='home.html'">
-       Quay về trang chủ
-    </button>
-  
-    <button class="btn-delete" onclick="deleteHistory()">
-       Xóa toàn bộ lịch sử
-    </button>
+    <h2>Bảng Thành Tích</h2>
+    
+    <div id="history-list" class="history-list">
+      <p class="empty-msg">Đang tải dữ liệu...</p>
+    </div>
+
+    <div class="back-btn-container">
+      <button class="btn home" onclick="goBack()">Quay lại Trang chủ</button>
+    </div>
   </div>
-
- 
-
 
   <script src="history.js"></script>
 </body>

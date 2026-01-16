@@ -2,38 +2,23 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <title>Game Caro XO</title>
+  <title>Game Caro - Trang chủ</title>
   <link rel="icon" href="images/xo.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="home-container">
-    <h1 id="game-name">GAME CARO XO</h1>
 
+  <div class="home-container">
+    <img src="images/xo.png" alt="Logo" width="80" style="margin-bottom: 10px;">
+    <h1 id="game-name">Cờ Caro</h1>
+    
     <div class="mode-box">
-      <label>
-        <input type="radio" name="mode" value="player" checked>
-        PVP
-      </label>
-      <label>
-        <input type="radio" name="mode" value="ai">
-        PVE
-      </label>
+      <label>Chọn chế độ chơi:</label>
+      <button class="btn start" onclick="location.href='game.html?mode=player'">Chơi với Người (PvP)</button>
+      <button class="btn start" onclick="location.href='game.html?mode=ai'">Chơi với Máy (PvE)</button>
+    </div>
+    
     </div>
 
-    <button class="btn start" onclick="startGame()">Bắt đầu</button>
-    <button class="btn history" onclick="viewHistory()">Xem lịch sử đấu</button>
-  </div>
-
-  <script>
-    function startGame() {
-      const mode = document.querySelector('input[name="mode"]:checked').value;
-      window.location.href = `game.html?mode=${mode}`;
-    }
-
-    function viewHistory() {
-      window.location.href = "history.html";
-    }
-  </script>
 </body>
 </html>

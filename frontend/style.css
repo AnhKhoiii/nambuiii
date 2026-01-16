@@ -19,7 +19,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: url("images/raul.jpg") center / cover no-repeat;
+  background: url("images/CaroVN.jpg") center / cover no-repeat;
   transform: scale(1.1);
   animation: bgMove 20s ease-in-out infinite alternate;
   z-index: -2;
@@ -293,7 +293,6 @@ body::after {
   font-size: 14px;
 }
 
-/* Ẩn bớt margin thừa ở board cũ */
 .board {
   margin: 10px auto 20px; 
 }

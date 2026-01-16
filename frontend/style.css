@@ -1,0 +1,225 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
+}
+
+/*Background*/
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("images/raul.jpg") center / cover no-repeat;
+  transform: scale(1.1);
+  animation: bgMove 20s ease-in-out infinite alternate;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: -1;
+}
+
+@keyframes bgMove {
+  from { transform: scale(1.1) translateX(0); }
+  to   { transform: scale(1.15) translateX(-20px); }
+}
+
+/* COMMON CONTAINER */
+.home-container,
+.game-container,
+.history-container {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+/* giao dien HOME */
+.home-container {
+  width: 350px;
+  padding: 40px 50px;
+}
+
+#game-name
+{
+  margin:4px;
+}
+.mode-box {
+  text-align: left;
+  margin: 25px 8px;
+}
+
+.mode-box label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+/* GAME */
+.game-container {
+  padding: 25px 30px;
+}
+
+.game-header h2 {
+  color: #333;
+}
+
+#status {
+  margin: 8px 0 15px;
+  font-weight: bold;
+  color: #555;
+}
+
+.board {
+  display: grid;
+  gap: 2px;
+  background: #333;
+  padding: 2px;
+  margin: 0 auto 20px;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background: #fafafa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.cell:hover { background: #e0e0e0; }
+.cell:active { transform: scale(0.95); }
+
+.game-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* HISTORY */
+.history-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.history-container {
+  width: 500px;
+  max-width: 90%;
+  padding: 25px;
+}
+
+.history-list {
+  list-style: none;
+  margin-bottom: 20px;
+}
+
+.history-item {
+  background: #f5f7ff;
+  padding: 12px 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+}
+
+.history-info {
+  text-align: left;
+  font-size: 14px;
+  color: #555;
+}
+
+/*BADGE */
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.badge.pvp { background: #3498db; }
+.badge.ai  { background: #9b59b6; }
+.badge.X   { background: #e74c3c; }
+.badge.O   { background: #2ecc71; }
+
+/* BUTTON*/
+.btn,
+.btn-back,
+.btn-delete {
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.btn:hover,
+.btn-back:hover,
+.btn-delete:hover {
+  transform: scale(1.05);
+}
+
+.start   { background: #4caf50; color: #fff; }
+.history { background: #2196f3; color: #fff; }
+.reset   { background: #ff9800; color: #fff; }
+.home    { background: #607d8b; color: #fff; }
+
+.btn-back {
+  background: #667eea;
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 14px;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: #fff;
+  padding: 10px 18px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+/* WIN FLASH */
+.win-flash::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.25);
+  animation: flash 0.6s ease-out;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@keyframes flash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}

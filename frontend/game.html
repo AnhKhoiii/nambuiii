@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Caro</title>
+  <link rel="icon" href="images/xo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="game-container">
+    <div class="game-header">
+      <h2 id="modeText">Chế độ</h2>
+      <p id="status">Lượt: X</p>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <div class="game-actions">
+      <button class="btn reset" onclick="resetGame()">Chơi lại</button>
+      <button class="btn home" onclick="goHome()">Trang chủ</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
